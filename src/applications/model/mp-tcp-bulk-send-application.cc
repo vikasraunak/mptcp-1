@@ -33,6 +33,7 @@
 #include "ns3/tcp-socket-factory.h"
 #include "mp-tcp-bulk-send-application.h"
 #include "ns3/string.h"
+#include <cstdlib>
 
 NS_LOG_COMPONENT_DEFINE ("MpTcpBulkSendApplication");
 
@@ -249,6 +250,9 @@ void MpTcpBulkSendApplication::SendData (void)
         {
           toSend = std::min(m_sendSize, m_socket->GetTxAvailable());
         }
+          
+         toSend = ( (double)rand() / (double)RAND_MAX) * toSend; 
+         
           //toSend = std::min(toSend, m_bufferSize);
           //int actual = m_socket->FillBuffer(&m_data[toSend], toSend); // TODO Change m_totalBytes to toSend
           int actual = m_socket->FillBuffer(toSend); // TODO Change m_totalBytes to toSend
